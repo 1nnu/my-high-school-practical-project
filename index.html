@@ -15,14 +15,18 @@
       longitude: <span id="longitude"></span>&deg;
     </p>
     <div>
-      VALITUD KOHT: <span id="places"></span>
+      VALITUD KOHT: <span id="demo"></span>
     </div>
+    <div id="locationInfo"></div>
     <button onclick="initMap()">Alusta</button>
     <div id="map"></div>
 
   <script>
 let map, infoWindow, marker, bounds, currentInfoWindow;
 let posit;
+let DirectionsService, temp;
+var x;
+const placeCategory = ["park", "restoran", "mäng", "muuseum", "kaubamaja"];
 if (navigator.geolocation) {
 navigator.geolocation.getCurrentPosition(position => {
   posit = {
@@ -67,10 +71,11 @@ function initMap() {
 }
 
 function getNearbyPlaces(position) {
+      let temp = Math.round(random(1,5));
       let request = {
         location: position,
         rankBy: google.maps.places.RankBy.DISTANCE,
-        keyword: 'park'
+        keyword: placeCategory[temp]
       };
 
       service = new google.maps.places.PlacesService(map);
@@ -85,37 +90,18 @@ function getNearbyPlaces(position) {
     }
 
     function createMarkers(places) {
-      places.splice(1, 19);
-      places.forEach(place => {
-        let marker = new google.maps.Marker({
-          position: place.geometry.location,
+      let temp = Math.round(random(1, 20));
+      let randomPlace = places[temp]
+      let marker = new google.maps.Marker({
+          position: randomPlace.geometry.location,
           map: map,
-          title: place.name
+          title: randomPlace.name
         });
-document.getElementById("places").innerHTML=places;
-        /* TODO: Step 4B: Add click listeners to the markers */
-        // Add click listener to each marker
-        google.maps.event.addListener(marker, 'click', () => {
-          let request = {
-            placeId: place.place_id,
-            fields: ['name', 'formatted_address', 'geometry', 'rating',
-              'website', 'photos']
-          };
+      document.getElementById("demo").innerHTML = marker.title;
+    }
 
-          /* Only fetch the details of a place when the user clicks on a marker.
-           * If we fetch the details for all place results as soon as we get
-           * the search response, we will hit API rate limits. */
-          service.getDetails(request, (placeResult, status) => {
-            showDetails(placeResult, marker, status)
-          });
-        });
-
-        // Adjust the map bounds to include the location of this marker
-        bounds.extend(place.geometry.location);
-      });
-      /* Once all the markers have been placed, adjust the bounds of the map to
-       * show all the markers within the visible area. */
-      map.fitBounds(bounds);
+    function random (min, max) {
+      return Math.random() * (max - min) + min;
     }
   </script>
   </body>
