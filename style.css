@@ -1,13 +1,26 @@
 #map {
-    height: 1000px;
+    height: 700px;
     width: 700px;
-    margin-left: 1200px;
-    
+    left: 1200px;
+    position: absolute;
+    z-index: 3;    
   }
+#button {
   
+}
+  #infopanel {
+    background-color: aquamarine;
+    position: absolute;
+    width: 1000px;
+    height: 500px;
+    top: 200px;
+
+  }
   html,
   body {
-    height: 100%;
+    background-image: url("tagataust.png");
+    max-height: 1080px;
+    max-width: 1920px;
     margin: 0;
     padding: 0;
   }
