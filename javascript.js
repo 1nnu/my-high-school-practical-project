@@ -108,6 +108,7 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
         fields: ["name", "formatted_address", "place_id", "rating", "photos","website"]
       };
       service.getDetails(request, (place, status) => {
+
         document.getElementById("demo2").innerHTML = place.rating;
         document.getElementById("demo3").innerHTML = place.formatted_address;
         document.getElementById("demo4").innerHTML = place.website;

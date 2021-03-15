@@ -1,19 +1,37 @@
+@font-face { font-family: Aino; src: url('./Aino-fonts/Aino_31_170411-Regular.otf'); } 
+@font-face { font-family: Aino; font-weight: bold; src: url('./Aino-fonts/Aino_31_170411-Regular.otf');}
+@font-face { font-family: AinoH; src: url('./Aino-fonts/Aino-Headline.otf'); } 
+@font-face { font-family: AinoH; font-weight: bold; src: url('./Aino-fonts/Aino-Headline.otf');}
+@font-face { font-family: AinoB; src: url('./Aino-fonts/Aino_31_170411-Bold.otf'); } 
+@font-face { font-family: AinoB; font-weight: bold; src: url('./Aino-fonts/Aino_31_170411-Bold.otf');}
+p {font-family:  Aino}
+li {font-family:  Aino}
+
 #map {
-    height: 700px;
-    width: 700px;
-    left: 1200px;
+    height: 950px;
+    width: 1000px;
+    left:900px;
+    top: 10px;
     position: absolute;
-    z-index: 3;    
+    float:right;
   }
 #button {
-  
+  position: absolute;
+  color:white;
+  top:770px;
+  left:23px;
+  font-size: 70px;
+  font-family: Arial;
+  padding: 10px;
+  background-color: #e94545;
+  z-index: 5;
 }
   #infopanel {
     background-color: aquamarine;
     position: absolute;
-    width: 1000px;
-    height: 500px;
-    top: 200px;
+    width: 500px;
+    height: 950px;
+    top: 10px;
 
   }
   html,
@@ -41,4 +59,55 @@
   .custom-map-control-button:hover {
     background: #ebebeb;
   }
-  
+  #welcome {
+    font-size: 80px;
+    font-family: AinoH;
+    color:rgb(45, 92, 223);
+  }
+  #message {
+    position: absolute;
+    color: rgb(19, 199, 34);
+    font-family: AinoH;
+    font-size: 30px;
+    top: 180px;
+    left: 75px;
+  }
+  #startbutton {
+    position:absolute;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  top:700px;
+  left:350px;
+  }
+  #instructions {
+    border-radius:100px;
+    top:50px;
+    position: absolute;
+    left: 550px;
+    width: 800px;
+    height: 900px;
+    text-align: center;
+    background-color:white;
+  }
+  #objective {
+    font-size:20px;
+  }
+  #chosenplace {
+    font-size: 40px;
+  }
+  #list {
+    position:absolute;
+    text-align: left;
+    left: 70px;
+  }
+  #demo {
+      font-family:Aino;
+      font-size: 30px;
+  }
