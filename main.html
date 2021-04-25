@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+  <title>AvastaEestit</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu1gWGp2bOSkaQfDLjgHVYD4CH20-Jn78&callback=initMap&libraries=places&v=weekly"
+    defer></script>
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <meta charset="utf-8">
+</head>
+
+<body onload="initMap()">
+  <div id="container">
+    <img id="preloader" src="pildid-fontid/preloader.gif" alt="Veebilehe avamise alguses mängitav GIF">
+  </div>
+  <div id="infopanel">
+    <div>
+      <p id="chosenplace">Valitud koht: </p><span class="datashown" id="title"></span>
+      <p class="placeinfo">Reiting: <span class="datashown" id="rating"></span></p>
+      <p class="placeinfo">Aadress: <span class="datashown" id="address"></span></p>
+      <p class="placeinfo">Asukoha veebileht: <a id="website" target="_blank" href=""></a></p>
+      <a id="link" target="_blank" href="">Külastage või Vaadake kohta Google Maps’is</a>
+      <p>Otsite midagi täpsemat?</p>
+      <input id="otsing" placeholder="Kirjutage siia, mida soovite leida ja vajutage klahvi enter">
+    </div>
+  </div>
+  <div id="locationInfo"></div>
+  <a id="button" onclick="initMap()">
+      VÄRSKENDA
+  </a>
+  <div id="map"></div>
+
+  <script src="javascript.js"></script>
+</body>
+
+</html>

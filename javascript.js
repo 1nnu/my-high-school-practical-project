@@ -1,10 +1,7 @@
-let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, randomPlace;
-    let posit;
-    let temp;
-    var directionsDisplay;
-    var x, link = "https://www.google.com/maps/place/"
-    const placeCategory = ["park", "restoran", "mäng", "muuseum", "kaubamaja", "tervis"];
-    if (navigator.geolocation) {
+let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, randomPlace, posit, temp, request;
+    var directionsDisplay, userSearch = false;                                                                          //Erinevate tegurite deklareerimine
+    var link = "https://www.google.com/maps/place/"
+    const placeCategory = ["park", "restoran", "mäng", "muuseum", "kaubamaja", "tervis"];                                                                        //Funktsioon, mis küsib kasutajalt asukoha ning salvestab selle
       navigator.geolocation.getCurrentPosition(position => {
         posit = {
           lat: position.coords.latitude,
@@ -13,11 +10,8 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
         document.getElementById('latitude').textContent = posit.lat;
         document.getElementById("longitude").textContent = posit.lng;
       });
-    }
 
-
-
-    function initMap() {
+    function initMap() {                                                                                //Peamine kaardi funktsioon, mis tekitab veebilehele kaardi vastavate parameetritega
       bounds = new google.maps.LatLngBounds();
       infoWindow = new google.maps.InfoWindow;
       currentInfoWindow = infoWindow;
@@ -29,13 +23,12 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
 
       bounds.extend(posit);
 
-      infoWindow.setPosition(posit);
-      infoWindow.setContent('Location found.');
+      infoWindow.setPosition(posit);                        //Kasutaja asukoha märgistav funktsioon
+      infoWindow.setContent('Asute siin.');
       infoWindow.open(map);
       map.setCenter(posit);
 
-
-      getNearbyPlaces(posit);
+      getNearbyPlaces(posit);                               //Kutsub funktsiooni, mis otsib kasutaja läheduses olevaid huvipunkte
 
       marker = new google.maps.Marker({
         map,
@@ -46,27 +39,38 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
       });
     }
 
-    function getNearbyPlaces(position) {
+    function getNearbyPlaces(position) {     
+      let requestUser = document.getElementById("otsing").value;                                                           //Funktsioon, mis annab asukohtade otsingule parameetrid
       let temp = Math.round(random(0, 5));
-      let request = {
+      if (requestUser.length > 1) {
+        request = {
+          location: position,
+          rankBy: google.maps.places.RankBy.DISTANCE,
+          keyword: requestUser
+        };
+        userSearch = true;
+      }
+        else{
+      
+       request = {
         location: position,
         rankBy: google.maps.places.RankBy.DISTANCE,
         keyword: placeCategory[temp]
       };
-
+    }
       service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, nearbyCallback);
+      service.nearbySearch(request, nearbyCallback);                                                    //Funktsioon, mis kasutab parameetrite objekti otsinguks ning saab vastuseks 20 objektise massiivi
     }
 
 
     function nearbyCallback(results, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {                                        
         createMarkers(results);
       }
     }
 
-    function createMarkers(places) {
-      let temp = Math.round(random(0, 19));
+    function createMarkers(places) {                                                                    //Valib ühe kahekümnest erinevast asukohast ühe ning tekitab sellele kohale kaardil märgise
+      let temp = Math.round(random(0, (places.length - 1)));
       randomPlace = places[temp];
       displayInfo(randomPlace);
       markerNEW = new google.maps.Marker({
@@ -74,9 +78,9 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
         map: map,
         title: randomPlace.name
       });
-      document.getElementById("demo").innerHTML = markerNEW.title;
+      document.getElementById("title").innerHTML = markerNEW.title;
 
-      google.maps.event.addListener(markerNEW, 'click', () => {
+      google.maps.event.addListener(markerNEW, 'click', () => {                                        //Vajutades märgisele saab asukoha kohta infot(pole eriti vajalik, kuna veebileht näitab inforibal seda)
         let request = {
           placeId: randomPlace.place_id,
           fields: ['name', 'formatted_address', 'geometry', 'rating',
@@ -85,7 +89,7 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
       });
       calcRoute();
     }
-    function calcRoute() {
+    function calcRoute() {                                                                            // Asukohtade vahelise teekonna märgistaja, et tekitada visuaalset arusaama kasutaja ning huvipunkti distantsil.
       var start = posit;
       var end = markerNEW.position;
       var request = {
@@ -102,26 +106,36 @@ let map, infoWindow, marker, bounds, currentInfoWindow, markerNEW, markerPos, ra
         }
       });
     }
-    function displayInfo(randomPlace) {
+    function displayInfo(randomPlace) {                                                             //Inforiba täiendaja, mis kutsub asukoha info saamiseks "getDetails" funktsiooni
       const request = {
         placeId: randomPlace.place_id,
         fields: ["name", "formatted_address", "place_id", "rating", "photos","website"]
       };
       service.getDetails(request, (place, status) => {
-
-        document.getElementById("demo2").innerHTML = place.rating;
-        document.getElementById("demo3").innerHTML = place.formatted_address;
-        document.getElementById("demo4").innerHTML = place.website;
+        document.getElementById("rating").innerHTML = place.rating;
+        if (typeof place.rating == 'undefined') {
+          document.getElementById("rating").innerHTML = "Reiting pole saadaval";
+        }
+        document.getElementById("address").innerHTML = place.formatted_address;
+        if (typeof place.formatted_address == 'undefined') {
+          document.getElementById("address").innerHTML = "Aadress pole saadaval";
+        }
+        
+        document.getElementById("website").innerHTML = (place.website.slice(0,30)) + "...";       //Asukoha veebilehe aadressi lühendaja
+        if (typeof place.website == 'undefined') {
+          document.getElementById("website").innerHTML = "Veebileht pole saadaval";
+        }
         var linkgooglemaps = link.concat(place.formatted_address);
-        const b = document.querySelector('#demo4');
+        const b = document.querySelector('#website');
         b.href = place.website;
         const a = document.querySelector("#link");
         a.href = linkgooglemaps;
       });
+
     }
 
 
 
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
+    function random(min, max) {                     //Suvalise numbri tekitaja
+      return Math.floor( Math.random() * (max-min+1) ) + min;
     }

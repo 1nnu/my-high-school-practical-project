@@ -1,46 +1,53 @@
-@font-face { font-family: Aino; src: url('./Aino-fonts/Aino_31_170411-Regular.otf'); } 
-@font-face { font-family: Aino; font-weight: bold; src: url('./Aino-fonts/Aino_31_170411-Regular.otf');}
-@font-face { font-family: AinoH; src: url('./Aino-fonts/Aino-Headline.otf'); } 
-@font-face { font-family: AinoH; font-weight: bold; src: url('./Aino-fonts/Aino-Headline.otf');}
-@font-face { font-family: AinoB; src: url('./Aino-fonts/Aino_31_170411-Bold.otf'); } 
-@font-face { font-family: AinoB; font-weight: bold; src: url('./Aino-fonts/Aino_31_170411-Bold.otf');}
+@font-face { font-family: Aino; 
+  src: url('./pildid-fontid/Aino-fonts/Aino_31_170411-Regular.otf'); }                    /*Aino typeface'i importimine*/
+@font-face { font-family: Aino; font-weight: bold; 
+  src: url('./pildid-fontid/Aino-fonts/Aino_31_170411-Regular.otf');}
+@font-face { font-family: AinoH; 
+  src: url('./pildid-fontid/Aino-fonts/Aino-Headline.otf'); } 
+@font-face { font-family: AinoH; font-weight: bold; 
+  src: url('./pildid-fontid/Aino-fonts/Aino-Headline.otf');}
+@font-face { font-family: AinoB; 
+  src: url('./pildid-fontid/Aino-fonts/Aino_31_170411-Bold.otf'); } 
+@font-face { font-family: AinoB; font-weight: bold; 
+  src: url('./pildid-fontid/Aino-fonts/Aino_31_170411-Bold.otf');}
 p {font-family:  Aino}
-li {font-family:  Aino}
-
-#map {
-    height: 950px;
-    width: 1000px;
-    left:900px;
-    top: 10px;
+li {font-family:  Aino}                       
+/*Süsteemitemita elementide visuaalne muutmine*/
+#map {                                                      
+    left:420px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
     position: absolute;
-    float:right;
   }
 #button {
   position: absolute;
+  border-radius: 12px;
   color:white;
   top:770px;
-  left:23px;
-  font-size: 70px;
+  left:40px;
+  font-size: 50px;
   font-family: Arial;
   padding: 10px;
-  background-color: #e94545;
+  background-color: #33a532;
   z-index: 5;
 }
   #infopanel {
-    background-color: aquamarine;
+    background-color: rgb(250, 250, 250);
     position: absolute;
-    width: 500px;
-    height: 950px;
-    top: 10px;
+    width: 420px;
+    height: 100%;
+    top: 0px;
 
   }
   html,
   body {
-    background-image: url("tagataust.png");
+    background-image: url("pildid-fontid/tagataust.png");
     max-height: 1080px;
     max-width: 1920px;
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
   
   .custom-map-control-button {
@@ -79,28 +86,29 @@ li {font-family:  Aino}
   color: white;
   padding: 20px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 20px;
   margin: 4px 2px;
   top:700px;
   left:350px;
+  background-color:#e94545;
   }
   #instructions {
     border-radius:100px;
     top:50px;
     position: absolute;
-    left: 550px;
+    margin: auto;
+    left: 30%;
     width: 800px;
     height: 900px;
     text-align: center;
     background-color:white;
   }
-  #objective {
+  p.objective {
     font-size:20px;
   }
   #chosenplace {
-    font-size: 40px;
+    font-size: 30px;
   }
   #list {
     position:absolute;
@@ -110,4 +118,45 @@ li {font-family:  Aino}
   #demo {
       font-family:Aino;
       font-size: 30px;
+  }
+  #status {
+    position:absolute;
+    left:350px;
+    width:50px;
+    height:50px;
+  }
+  span.datashown {
+    font-size: 35px;
+    background-color: rgba(228, 226, 226, 0.253);
+  }
+  .placeinfo {
+    font-size: 35px;
+  }
+  #preloader {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 99;
+    animation: disappear 0s linear 4s forwards;
+  }
+  
+  @keyframes disappear {                      /*GIF faili kadumine*/
+    to {height: 0px;}
+  }
+
+  #startbutton:hover {
+    cursor: pointer;
+  }
+  #button:hover {
+    cursor: pointer;
+  }
+
+  #website{
+    font-size: 20px;
+  }
+
+  #otsing {
+    width: 90%;
   }

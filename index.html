@@ -1,38 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="et">
 
 <head>
-  <title>Place Searches</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu1gWGp2bOSkaQfDLjgHVYD4CH20-Jn78&callback=initMap&libraries=places&v=weekly"
-    defer></script>
+  <title>AvastaEestit</title>
   <link rel="stylesheet" type="text/css" href="./style.css" />
+  <meta charset="utf-8">
 </head>
-
 <body>
-  <div id="infopanel">
-  <p>
-    latitude: <span id="latitude"></span>&deg;<br />
-    longitude: <span id="longitude"></span>&deg;
-  </p>
-  <div>
-    <p id="chosenplace">Valitud koht: </p><span id="demo"></span> </br>
-    <p>Reiting: <span id="demo2"></span></p> </br>
-    <p>Aadress: <span id="demo3"></span></p> </br>
-    Asukoha veebileht: <a id="demo4" target="_blank"></a> </br>
-    <a id="link" target="_blank">NB! Vajutage seda teksti, et asuda Google Maps keskkonda</a>
-    <img id="pilt" src="">
+  <div id="instructions">
+    <h4 id="welcome">Geo meelelahutus</h4>                                               <!--Veebilehe sisu, mida on CSS'iga viimistletud-->
+    <h2 id="message">Avasta uut ja tundmatut oma ümbruskonnas</h2>
+    <p class="objective">Mis on selle veebilehe eesmärk?</p>
+    <p id="description">Veebileht pakub kasutajale juhuvaliku põhimõttel asukohti, mis võivad talle huvi pakkuda.</p>
+    <p class="objective">Kuidas veebilehte kasutada?</p>
+    <ol id="list">
+      <li>Lubage lehel ligipääs teie asukoha andmetele lehekülje ülaservas</li>
+      <li>Vajutage nuppu "AVASTA"</li>
+      <li>Avastage asukohta, mis teile pakuti</li>
+      <li>Kui soovite näha teisi pakkumisi, vajutage uuesti nupule "VÄRSKENDA"</li>
+    </ol>
+    <nav>
+        <a id="startbutton" href="./main.html">AVASTA</a>
+    </nav>
   </div>
-</div>
-  <div id="locationInfo"></div>
-  <a onclick="initMap()">
-  <div id="button">
-    VÄRSKENDA
-  </div>
-  </a>
-  <div id="map"></div>
-
   <script src="javascript.js"></script>
 </body>
 
